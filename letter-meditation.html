@@ -1,1 +1,66 @@
-Placeholder content
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I Hope This Letter Finds You Well</title>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
+  <style>
+    body {
+      filter: brightness(0.98);
+      font-family: 'IM Fell English', serif;
+      background-color: #ffffff;
+      color: #000;
+      line-height: 1.6;
+      padding: 5em 2em;
+      max-width: 800px;
+      margin: 0 auto;
+      transform: rotate(-0.8deg);
+      transform-origin: top left;
+    }
+    a {
+      position: relative;
+      display: inline-block;
+      color: #000;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+    a:hover::before {
+      content: '';
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      top: 45%;
+      transform: translateY(-50%) rotate(-2deg) skewX(-2deg);
+      height: 1.4em;
+      background: rgba(150, 250, 140, 0.75);
+      z-index: -1;
+      border-radius: 6px;
+      mix-blend-mode: multiply;
+    }
+    .vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.08) 100%);
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <a href="object.html" class="pencil-underline">go back</a>
+  <h2><em>I Hope This Letter Finds You Well and Doesn’t Disturb Your Meditation.</em> 2023</h2>
+  <p><em>Video projection of a still photograph animated in Cinema 4D, 5 second seamless loop, steel, window frame, resin, human hair, hanger, exit sign, chandelier, dust.</em></p>
+  <p>Taking a 2D still photograph with an arbitrary timestamp and projection mapping it onto 3D geometry inside Cinema 4D, I created a scene of shiny artificial spheres falling from the sky and dissolving into the sea of Nice. It loops every five seconds. Nothing changes. A kind of limbo, fixated in time.</p>
+  <p>The video projection lights up the chandelier, the floor-window, a lock of hair sealed inside a transparent letter. Light becomes the only thing that can move. It escapes the cage. It travels across the room like a message no one’s asked for, arriving at the speed of light, still too late.</p>
+  <div style="margin-top: 3em;">
+    <img src="Screenshot 2025-01-13 at 05.56.17.png" style="width: 80%; display: block; margin: 0 auto 3em 0; transform: rotate(-1deg);">
+    <img src="Screenshot 2025-01-15 at 17.46.05.png" style="width: 70%; display: block; margin: 0 0 3em auto; transform: rotate(0.5deg);">
+    <img src="Screenshot 2025-01-15 at 17.47.22.png" style="width: 85%; display: block; margin: 0 auto 2em 2em; transform: rotate(-0.3deg);">
+  </div>
+  <div class="vignette"></div>
+</body>
+</html>
