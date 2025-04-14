@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artist Statement</title>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
+  <style>
+    body {
+      filter: brightness(0.98);
+      font-family: 'IM Fell English', serif;
+      background-color: #ffffff;
+      color: #000;
+      line-height: 1.6;
+      padding: 5em 2em;
+      max-width: 800px;
+      margin: 0 auto;
+      transform: rotate(-0.8deg);
+      transform-origin: top left;
+    }
+
+    a {
+      position: relative;
+      display: inline-block;
+      color: #000;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+
+    a:hover::before {
+      content: '';
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      top: 45%;
+      transform: translateY(-50%) rotate(-2deg) skewX(-2deg);
+      height: 1.4em;
+      background: rgba(150, 250, 140, 0.75);
+      z-index: -1;
+      border-radius: 6px;
+      mix-blend-mode: multiply;
+    }
+
+    .pencil-underline::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 8px;
+      background-image: url('underline_extracted.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.08) 100%);
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="pencil-underline">go back</a>
+  <p>I sample fragments—visual, literary, theoretical—leftovers from culture’s recursive loops—and reassemble them through writing, 3D software, video, installation, and occasionally through performance or a URL. Each fragment—material or immaterial—carries equal narrative weight. I map the texture of life after ruin: curated, automated, haunted, and occasionally exquisite.</p>
+  <p>I speak from a place of immobility, from epistemological ruins, from the spectral inertia of geopolitical histories. I build textual, digital, and physical spaces—scenes where I drift from the suite at the Ritz Paris to the corridor of a two-star hotel; from CGI clouds to screenshots of oceans; from Lacan (misread) to a YouTube makeup tutorial. I think about how memory, affect, and intimacy are mediated in something post-digital, something neoliberal, something liminal, and perhaps something girly. Sometimes I think the screenshots are more honest than the render. Sometimes I think the render is more honest than me.</p>
+  <p>I make micro-aesthetic choices, at once banal and symbolic: a broken wine glass made in China, a vase away from the focal point of a 19th century painting rendered into a 3D model by AI, half-touristic, half-confessional images left behind on Google Reviews by strangers. I salvage such artifacts and compose them as endnotes, or as an epilogue to the fallout of unresolved systems I both romanticize and reject. Through such gestures, my work depicts a sort of contemporary vertigo—a vertigo that itself hovers between the real and the virtual. It’s like opening a browser with 78 tabs: one is Marx, one is Sephora, one is a Reddit thread on how to find obscure arthouse films, one is a payment page for upgrading your iCloud storage…</p>
+  <p>Maximalist ambiguity is the symptom I work with, where femininity becomes interface, cultural heritage becomes branding strategy, and political urgency flickers into spectacle. It’s hard to say if I thrive in contradictions or if I suffer from them. Oftentimes I feel like I’m about to faint in the fog.</p>
+  <p>I’m instigating a courageous type of sadness here. A discreet rebellion in favor of ontological impossibilities.<br><em>(I know, I know—such big words.)</em></p>
+  <div class="vignette"></div>
+</body>
+</html>
