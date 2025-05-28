@@ -1,43 +1,52 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Visa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poet</title>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'IM Fell English', serif;
+      margin: 0;
+      padding: 0;
       background-color: #ffffff;
-      color: #000;
-      line-height: 1.6;
-      padding: 5em 2em;
-      max-width: 800px;
-      margin: 0 auto;
+      font-family: 'IM Fell English', serif;
+      color: #222;
     }
-    img {
-      display: block;
-      max-width: 100%;
-      height: auto;
-      margin-top: 2em;
+    .definition {
+      position: absolute;
+      top: 20%;
+      left: 25%;
+      transform: rotate(-0.3deg);
+      font-size: 1.2em;
+      white-space: pre-line;
+      line-height: 1.8;
     }
-    .footnote {
-      font-size: 0.9em;
-      color: #333;
-      margin-top: 1em;
+    .italic {
+      font-style: italic;
     }
-    a {
-      display: inline-block;
-      margin-bottom: 2em;
+    .pencil-underline::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 8px;
+      background-image: url('underline_extracted.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      opacity: 0.85;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
-  <a href="index.html">go back</a>
-  <h1>visa | ˈvēzə |</h1>
-  <p><em>noun</em><br>
-  an endorsement on a passport indicating that the holder is allowed to enter, leave, or stay for a specified period of time in a country: a tourist visa | the Home Office has extended her visa | an exit visa | [as modifier] :  US visa restrictions.</p>
-  <img src="world-map-true-proportioned-continents.jpeg.webp" alt="World Map True Proportioned Continents">
-  <p class="footnote">World map true proportioned continents</p>
+  <a href="index.html" class="pencil-underline" style="position: absolute; top: 1em; left: 1.5em; text-decoration: none; font-size: 0.9em; color: #000;">go back</a>
+  <div class="definition">
+    <img src="IMG_4718.jpg" style="width: 85%; display: block; margin: 3em auto 2em auto; transform: rotate(-0.4deg);">
+    <br><br>
+
+  </div>
 </body>
 </html>
