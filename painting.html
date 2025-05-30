@@ -38,6 +38,31 @@
       border-radius: 6px;
       mix-blend-mode: multiply;
     }
+    .pencil-underline::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 8px;
+      background-image: url('underline_extracted.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.08) 100%);
+      z-index: 1;
+    }
     img {
       width: 100%;
       margin: 2em 0;
@@ -46,7 +71,7 @@
   </style>
 </head>
 <body>
-  <a href="dilettante.html">go back</a><br><br><br>
+  <a href="dilettante.html" class="pencil-underline">go back</a><br><br><br>
 
   <h2><em>You are in a painting, baby, you are in a PAINTING!!!<br>
   Have you ever seen a cloth without a past?</em></h2>
