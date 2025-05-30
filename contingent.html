@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contingent</title>
+  <title>contingent</title>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
   <style>
     body {
@@ -19,20 +19,14 @@
       transform-origin: top left;
     }
 
-    img {
-      width: 100%;
-      height: auto;
-      display: block;
-      margin-bottom: 1em;
-    }
-
-    .caption {
+    a {
+      position: relative;
+      display: inline-block;
+      color: #000;
+      text-decoration: none;
       font-size: 0.9em;
-      color: #444;
-      text-align: left;
-      margin-bottom: 2em;
     }
-    a:hover::before {
+   a:hover::before {
       content: '';
       position: absolute;
       left: -2px;
@@ -45,7 +39,7 @@
       border-radius: 6px;
       mix-blend-mode: multiply;
     }
-    .pencil-underline::after {
+ .pencil-underline::after {
       content: '';
       position: absolute;
       left: 0;
@@ -58,6 +52,14 @@
       background-position: center bottom;
       opacity: 0.85;
       pointer-events: none;
+    }
+ .scan-img {
+      display: block;
+      width: 100%;
+      max-width: 600px;
+      margin: 2em auto;
+      height: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     .vignette {
       position: fixed;
@@ -73,7 +75,7 @@
 </head>
 <body>
   <a href="statement.html" class="pencil-underline">go back</a>
-  <img src="IMG_1541.jpg" alt="Scanned text from Index Cards by Moyra Davey">
+  <img src="IMG_1541.jpg" class="scan-img" alt="Scanned text from Index Cards by Moyra Davey">
   <div class="caption" <em>Index Cards</em></div>
   <div class="vignette"></div>
 </body>
