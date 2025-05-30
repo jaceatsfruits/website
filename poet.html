@@ -25,6 +25,19 @@
     .italic {
       font-style: italic;
     }
+     a:hover::before {
+      content: '';
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      top: 45%;
+      transform: translateY(-50%) rotate(-2deg) skewX(-2deg);
+      height: 1.4em;
+      background: rgba(150, 250, 140, 0.75);
+      z-index: -1;
+      border-radius: 6px;
+      mix-blend-mode: multiply;
+    }
     .pencil-underline::after {
       content: '';
       position: absolute;
@@ -45,8 +58,7 @@
   <a href="index.html" class="pencil-underline" style="position: absolute; top: 1em; left: 1.5em; text-decoration: none; font-size: 0.9em; color: #000;">go back</a>
   <div class="definition">
     <span class="italic">she's also sort of a painter</span> <br>
-    <a href="https://youtu.be/iSlSpmz9Ijg?si=CTOnmQPx3uPNrAGK" class="pencil-underline"><em>mon semblable,—mon frère!</em></a><br><br>
-    <br><br>
+   
 
   </div>
 </body>
