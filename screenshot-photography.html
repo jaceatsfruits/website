@@ -3,51 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Poet</title>
+  <title>Screenshot Photography</title>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      padding: 0;
+      padding: 20px; /* Added gentle padding for edges */
       background-color: #ffffff;
       font-family: 'IM Fell English', serif;
       color: #222;
+      line-height: 1.6; /* For any future text */
     }
-    .definition {
-      position: absolute;
-      top: 20%;
-      left: 25%;
-      transform: rotate(-0.3deg);
-      font-size: 1.2em;
-      white-space: pre-line;
-      line-height: 1.8;
+    .back-link {
+      text-align: left; /* Aligns naturally */
+      margin-bottom: 2em; /* Space before grid */
+      font-size: 0.9em;
     }
-    .definition img {
+    .back-link a {
+      text-decoration: none;
+      color: #000;
+    }
+    .back-link a:hover {
+      text-decoration: underline; /* Simple hover, no fancy underline.png needed unless you add it back */
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 3-4 cols on desktop, stacks on mobile */
+      gap: 1.5em; /* Breathing room between images */
+      max-width: 1200px; /* Keeps it centered/not too wide */
+      margin: 0 auto;
+    }
+    .gallery-item {
+      /* No rotation—keeps it straight for gallery feel */
+    }
+    .gallery-item img {
       display: block;
-      margin-top: 1em;
-      max-width: 400px;
-      width: 80%;
+      width: 100%; /* Fills the grid cell */
       height: auto;
       border: 1px solid #ccc;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      /* Optional: Add subtle tilt if you want poet-page flair */
+      /* transform: rotate(-0.3deg); */
     }
-    .italic {
-      font-style: italic;
-    }
-     a:hover::before {
-      content: '';
-      position: absolute;
-      left: -2px;
-      right: -2px;
-      top: 45%;
-      transform: translateY(-50%) rotate(-2deg) skewX(-2deg);
-      height: 1.4em;
-      background: rgba(150, 250, 140, 0.75);
-      z-index: -1;
-      border-radius: 6px;
-      mix-blend-mode: multiply;
-    }
-    .pencil-underline::after {
+    /* If you want the pencil underline back on the link, add this (needs underline_extracted.png in your repo) */
+    /*
+    .back-link a::after {
       content: '';
       position: absolute;
       left: 0;
@@ -61,14 +61,74 @@
       opacity: 0.85;
       pointer-events: none;
     }
+    .back-link a { position: relative; } /* Enables ::after positioning */
+    */
   </style>
 </head>
 <body>
-  <a href="index.html" class="pencil-underline" style="position: absolute; top: 1em; left: 1.5em; text-decoration: none; font-size: 0.9em; color: #000;">go back</a>
-  <div class="definition">
-    <span class="italic">she's also sort of a painter</span> <br>
-   <img src="HighresScreenshot00004.PNG" alt="Painter Image">
-
+  <a href="index.html" class="back-link">go back</a>
+  
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="screenshot1.jpg" alt="Screenshot 1">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot2.jpg" alt="Screenshot 2">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot3.jpg" alt="Screenshot 3">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot4.jpg" alt="Screenshot 4">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot5.jpg" alt="Screenshot 5">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot6.jpg" alt="Screenshot 6">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot7.jpg" alt="Screenshot 7">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot8.jpg" alt="Screenshot 8">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot9.jpg" alt="Screenshot 9">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot10.jpg" alt="Screenshot 10">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot11.jpg" alt="Screenshot 11">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot12.jpg" alt="Screenshot 12">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot13.jpg" alt="Screenshot 13">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot14.jpg" alt="Screenshot 14">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot15.jpg" alt="Screenshot 15">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot16.jpg" alt="Screenshot 16">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot17.jpg" alt="Screenshot 17">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot18.jpg" alt="Screenshot 18">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot19.jpg" alt="Screenshot 19">
+    </div>
+    <div class="gallery-item">
+      <img src="screenshot20.jpg" alt="Screenshot 20">
+    </div>
   </div>
 </body>
 </html>
