@@ -45,9 +45,20 @@
       /* Optional: Add subtle tilt if you want poet-page flair */
       /* transform: rotate(-0.3deg); */
     }
-    /* If you want the pencil underline back on the link, add this (needs underline_extracted.png in your repo) */
-    /*
-    .back-link a::after {
+       a:hover::before {
+      content: '';
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      top: 45%;
+      transform: translateY(-50%) rotate(-2deg) skewX(-2deg);
+      height: 1.4em;
+      background: rgba(150, 250, 140, 0.75);
+      z-index: -1;
+      border-radius: 6px;
+      mix-blend-mode: multiply;
+    }
+    .pencil-underline::after {
       content: '';
       position: absolute;
       left: 0;
@@ -61,8 +72,6 @@
       opacity: 0.85;
       pointer-events: none;
     }
-    .back-link a { position: relative; } /* Enables ::after positioning */
-    */
   </style>
 </head>
 <body>
