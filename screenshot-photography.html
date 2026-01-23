@@ -22,8 +22,30 @@
       white-space: pre-line;
       line-height: 1.8;
     }
+    .definition img {
+      display: block;
+      margin-top: 1em;
+      max-width: 400px;
+      width: 80%;
+      height: auto;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
     .italic {
       font-style: italic;
+    }
+     a:hover::before {
+      content: '';
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      top: 45%;
+      transform: translateY(-50%) rotate(-2deg) skewX(-2deg);
+      height: 1.4em;
+      background: rgba(150, 250, 140, 0.75);
+      z-index: -1;
+      border-radius: 6px;
+      mix-blend-mode: multiply;
     }
     .pencil-underline::after {
       content: '';
@@ -44,10 +66,9 @@
 <body>
   <a href="index.html" class="pencil-underline" style="position: absolute; top: 1em; left: 1.5em; text-decoration: none; font-size: 0.9em; color: #000;">go back</a>
   <div class="definition">
-    poet | ˈpōət |<br>
-    noun<br><br>
-    a person who writes poems.<br>
-    • a person possessing special powers of <span class="italic">imagination</span> or expression
+    <span class="italic">she's also sort of a painter</span> <br>
+   <img src="HighresScreenshot00004.PNG" alt="Painter Image">
+
   </div>
 </body>
 </html>
