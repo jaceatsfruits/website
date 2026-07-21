@@ -25,6 +25,28 @@
     .italic {
       font-style: italic;
     }
+    a {
+      position: relative;
+      display: inline-block;
+      color: #000;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+
+    a:hover::before {
+      content: '';
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      top: 45%;
+      transform: translateY(-50%) rotate(-2deg) skewX(-2deg);
+      height: 1.4em;
+      background: rgba(150, 250, 140, 0.75);
+      z-index: -1;
+      border-radius: 6px;
+      mix-blend-mode: multiply;
+    }
+
     .pencil-underline::after {
       content: '';
       position: absolute;
@@ -42,7 +64,7 @@
   </style>
 </head>
 <body>
-  <a href="index.html" class="pencil-underline" style="position: absolute; top: 1em; left: 1.5em; text-decoration: none; font-size: 0.9em; color: #000;">go back</a>
+  <a href="index.html" class="pencil-underline">go back</a>
   <p>Education</em></a>.</p>
 
   <div class="definition">

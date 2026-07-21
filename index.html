@@ -81,17 +81,59 @@
       background: radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.08) 100%);
       z-index: 1;
     }
+    #curtain {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      transition: transform 0.9s cubic-bezier(0.77, 0, 0.18, 1), opacity 0.9s ease;
+    }
+
+    #curtain img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    #curtain.open {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
-  <h1>Acknowledgment</h1>
+  <div id="curtain" onclick="openCurtain()">
+    <img src="curtain.jpg" alt="party curtain">
+  </div>
+  <script>
+    const navEntry = performance.getEntriesByType('navigation')[0];
+    const isBackNav = navEntry && (navEntry.type === 'back_forward');
+    const isInternalNav = sessionStorage.getItem('curtainSeen') && navEntry && navEntry.type === 'navigate';
+
+    if (isBackNav || isInternalNav) {
+      document.getElementById('curtain').style.display = 'none';
+    }
+
+    function openCurtain() {
+      sessionStorage.setItem('curtainSeen', '1');
+      document.getElementById('curtain').classList.add('open');
+    }
+  </script>
+  <h1 style="font-size: 1.4em;">Translator's Foreword</h1>
   <p>
-    <a href="serious.html" class="pencil-underline">jac<sup>1</sup></a> (b.2000) is a <a href="poet.html" class="pencil-underline italic">poet</a> currently <a href="living.html" class="pencil-underline">living</a> in the Netherlands and has been migrating through realities since the 2008 Beijing Olympics. She constellates <a href="object.html" class="pencil-underline">objects</a>, makes <a href="video.html" class="pencil-underline">videos</a>, writes <a href="dilettante.html" class="pencil-underline">letters</a>, and takes <a href="screenshot-photography.html" class="pencil-underline">screenshot photography</a>
-.
+    <a href="jac.html" class="pencil-underline">She</a> <a href="serious.html" class="pencil-underline">sighs</a> along with objects that aspire to resemble <a href="video.html" class="pencil-underline">something</a> else.<sup>1</sup>
   </p>
   <div class="footnote">
-    <sup>1</sup> write to me: jacquelinelan1642@gmail.com<br>
-    stalk me: @jacquelinel_lan
+    <sup>1</sup> write to her: jacquelinelan1642@gmail.com<br>
+    see her: @pistachio.cache
   </div>
   <div class="vignette"></div>
 </body>

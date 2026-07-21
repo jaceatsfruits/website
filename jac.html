@@ -3,20 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Impossible Rocks (???): 3D Printed Grief—A fire ritual</title>
+  <title>Jac</title>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
   <style>
     body {
+      filter: brightness(0.98);
       font-family: 'IM Fell English', serif;
       background-color: #ffffff;
       color: #000;
-      line-height: 1.7;
+      line-height: 1.6;
       padding: 5em 2em;
-      max-width: 1200px;
+      max-width: 800px;
       margin: 0 auto;
       transform: rotate(-0.8deg);
       transform-origin: top left;
     }
+
     a {
       position: relative;
       display: inline-block;
@@ -24,6 +26,7 @@
       text-decoration: none;
       font-size: 0.9em;
     }
+
     a:hover::before {
       content: '';
       position: absolute;
@@ -37,6 +40,7 @@
       border-radius: 6px;
       mix-blend-mode: multiply;
     }
+
     .pencil-underline::after {
       content: '';
       position: absolute;
@@ -51,41 +55,26 @@
       opacity: 0.85;
       pointer-events: none;
     }
-    .media-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2em;
-      align-items: flex-start;
-    }
-    iframe {
-      flex: 1 1 600px;
-      height: 360px;
-    }
-    .stills {
-      flex: 1 1 400px;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5em;
-    }
-    .stills img {
+
+    .vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: auto;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      height: 100%;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.08) 100%);
+      z-index: 1;
+    }
+
+    p {
+      margin-bottom: 1.5em;
     }
   </style>
 </head>
 <body>
-  <a href="video.html" class="pencil-underline">go back</a><br><br><br>
-
-  <div class="media-wrap">
-    <iframe src="https://drive.google.com/file/d/1Hi87verBAclY-DDixKnLQSGTQnQSov7v/preview" allow="autoplay"></iframe>
-  </div>
-
-  <p><em>CGI, 3D print, still photographs, wind. 00:09:46</em></p>
-
-  <p><br><br>
-
-  When something almost feels like something else<br><br>
-  </p>
+  <a href="index.html" class="pencil-underline">go back</a>
+  <p>In no particular order, jac is a lover, a semiotician, a poet, a restaurant goer, a film maker. She works with images, texts, objects, and sound to simulate the texture of her forgetfulness cast on the debris of contemporary malaise. She is <a href="https://maps.app.goo.gl/7vzVFnq8heHQPRgN6" class="pencil-underline" target="_blank">based</a> in waiting rooms.</p>
+  <div class="vignette"></div>
 </body>
 </html>
