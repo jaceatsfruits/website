@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jacqueline Lan</title>
-  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
   <style>
     html {
       background-color: #fafafa;
@@ -129,34 +129,32 @@
       position: absolute;
       left: 0;
       right: 0;
-      bottom: 8%;
+      bottom: 9%;
+      padding: 0 8%;
       text-align: center;
-      font-family: 'IM Fell English', serif;
-      font-style: italic;
-      font-size: 1.05em;
-      letter-spacing: 0.12em;
-      color: rgba(255, 255, 255, 0.9);
-      text-shadow: 0 1px 6px rgba(120, 0, 60, 0.6);
-      pointer-events: none;
-      animation: hintPulse 2.6s ease-in-out infinite;
-    }
-    @keyframes hintPulse {
-      0%, 100% { opacity: 0.35; }
-      50% { opacity: 0.9; }
-    }
-
-    #curtain.open {
-      transform: translateY(-100%);
-      opacity: 0;
+      /* EB Garamond given a worn, photocopied-book finish: warm ink colour,
+         a soft ink-bleed shadow, a hair of blur and a sepia cast so it reads
+         like a line lifted from a scanned 1970s paperback. */
+      font-family: 'EB Garamond', 'IM Fell English', Georgia, serif;
+      font-size: 1.5em;
+      line-height: 1.35;
+      letter-spacing: 0.01em;
+      color: #f5ecd6;
+      text-shadow:
+        0 0 1px rgba(70, 25, 45, 0.55),
+        0.4px 0.5px 0.7px rgba(35, 12, 22, 0.45);
+      filter: blur(0.35px) contrast(1.07) sepia(0.18);
+      opacity: 0.92;
       pointer-events: none;
     }
+    .curtain-hint em { font-style: italic; }
   </style>
 </head>
 <body>
   <div id="curtain">
     <canvas id="curtain-canvas"></canvas>
     <img id="curtain-img" src="curtain.jpg" alt="party curtain">
-    <div class="curtain-hint">click to enter</div>
+    <div class="curtain-hint">drag to <em>dress up a metaphor with an almond blossom</em></div>
   </div>
 
   <script>
@@ -180,27 +178,30 @@
 
     function markSeen() { try { sessionStorage.setItem('curtainSeen', '1'); } catch (e) {} }
 
-    // If anything below fails, fall back to the plain image with click-to-enter.
-    function fallback() {
-      container.classList.add('fallback');
-      container.addEventListener('click', openCurtain, { once: false });
-    }
+    let animId = null;
+    let revealed = false;
 
-    let opening = false;
-    function openCurtain() {
-      if (opening) return;
-      opening = true;
-      openStart = performance.now();
+    // Once the curtain has been drawn far enough aside, fade it out and hand
+    // the page over.
+    function revealCurtain() {
+      if (revealed) return;
+      revealed = true;
       markSeen();
-      if (hint) hint.style.display = 'none';
-      container.classList.add('open');
+      if (hint) hint.style.opacity = '0';
+      container.style.transition = 'opacity 0.7s ease';
+      container.style.opacity = '0';
+      container.style.pointerEvents = 'none';
       setTimeout(() => {
         container.style.display = 'none';
         if (animId) cancelAnimationFrame(animId);
-      }, 950);
+      }, 720);
     }
 
-    let animId = null, openStart = 0;
+    // If the simulation can't run, fall back to the plain image; a click reveals.
+    function fallback() {
+      container.classList.add('fallback');
+      container.addEventListener('click', revealCurtain);
+    }
 
     // Boot the simulation only on a first, forward visit; fall back to the
     // still image if three.js or WebGL is unavailable.
@@ -267,6 +268,12 @@
     let viewH, viewW, clothW, clothH, topY, xSegs, ySegs;
     let particles = [], constraints = [], geometry, mesh;
 
+    // Curtain-draw state: `open` (0 -> 1) is how far the rail has been pulled
+    // aside; `dragDir` +1 gathers the fabric to the right (revealing from the
+    // left), -1 gathers to the left. `settleTween` eases `open` after release.
+    let open = 0, dragDir = 0, dragging = false, settleTween = null;
+    let firstFrame = true;
+
     // Pointer as a soft collision sphere that pushes the fabric.
     const pointer = new THREE.Vector3(1e5, 1e5, 1e5);
     const SPHERE_R = 0.34;
@@ -311,7 +318,10 @@
       const pos = geometry.attributes.position;
       for (let i = 0; i < pos.count; i++) {
         const iy = Math.floor(i / (xSegs + 1));
-        particles.push(new Particle(pos.getX(i), pos.getY(i), 0, iy === 0));
+        const ix = i % (xSegs + 1);
+        const p = new Particle(pos.getX(i), pos.getY(i), 0, iy === 0);
+        p.u = ix / xSegs; // 0 = left edge, 1 = right edge (used to draw the rail aside)
+        particles.push(p);
       }
 
       // Structural constraints between grid neighbours.
@@ -356,15 +366,18 @@
       return out;
     }
 
+    // Where a rail particle at rest-position u should sit for the current draw.
+    function drawnU(u) {
+      return dragDir >= 0 ? u * (1 - open) + open : u * (1 - open);
+    }
+
     function step(now) {
       const t = now / 1000;
-      const gust = opening ? (now - openStart) / 950 : 0; // 0..1 while opening
 
       for (const p of particles) {
         if (p.pinned) continue;
         wind(p, t, _tmp);
         _tmp.y -= GRAVITY;
-        if (opening) { _tmp.y += 46 * (1 - gust); _tmp.z += 8; } // whoosh upward
         // Verlet integration
         _v.subVectors(p.pos, p.prev).multiplyScalar(1 - DAMP);
         p.prev.copy(p.pos);
@@ -394,10 +407,10 @@
         }
       }
 
-      // Keep pins anchored (and lift them while opening).
+      // Anchor the top rail, sliding it toward one side as the curtain is drawn.
       for (const p of particles) {
         if (!p.pinned) continue;
-        if (opening) p.pinTo.y += 0.06;
+        p.pinTo.x = -clothW / 2 + drawnU(p.u) * clothW;
         p.pos.copy(p.pinTo);
       }
     }
@@ -414,9 +427,26 @@
 
     function frame(now) {
       animId = requestAnimationFrame(frame);
+      if (settleTween) {
+        const s = (now - settleTween.start) / settleTween.dur;
+        if (s >= 1) {
+          open = settleTween.to;
+          const cb = settleTween.cb, toZero = settleTween.to === 0;
+          settleTween = null;
+          if (toZero) dragDir = 0;
+          if (cb) cb();
+        } else {
+          const e = s < 0.5 ? 2 * s * s : 1 - Math.pow(-2 * s + 2, 2) / 2; // easeInOutQuad
+          open = settleTween.from + (settleTween.to - settleTween.from) * e;
+        }
+      }
+      if (hint) hint.style.opacity = String(Math.max(0, 0.92 - open * 1.6));
       step(now);
       updateGeometry();
       renderer.render(scene, camera);
+      // The pink fill covers any boot flash; once the cloth is actually drawn,
+      // drop it to transparent so drawing the curtain aside reveals the page.
+      if (firstFrame) { firstFrame = false; container.style.backgroundColor = 'transparent'; }
     }
 
     // ---- Pointer interaction ----
@@ -431,25 +461,55 @@
     }
     function retract() { pointer.set(1e5, 1e5, 1e5); }
 
-    let downX = 0, downY = 0, downT = 0;
+    const OPEN_DRAG_FRAC = 0.5; // dragging half the viewport width draws it fully aside
+    let dragStartX = 0;
+
     container.addEventListener('pointerdown', (ev) => {
-      downX = ev.clientX; downY = ev.clientY; downT = performance.now();
-      toWorld(ev);
+      if (revealed) return;
+      dragging = true;
+      dragStartX = ev.clientX;
+      settleTween = null;
+      retract();
+      if (container.setPointerCapture) { try { container.setPointerCapture(ev.pointerId); } catch (e) {} }
     });
-    window.addEventListener('pointermove', (ev) => { if (!opening) toWorld(ev); });
-    container.addEventListener('pointerup', (ev) => {
-      const moved = Math.hypot(ev.clientX - downX, ev.clientY - downY);
-      const quick = performance.now() - downT < 350;
-      if (moved < 10 && quick) openCurtain();
-      if (ev.pointerType !== 'mouse') retract();
+    window.addEventListener('pointermove', (ev) => {
+      if (dragging) {
+        const dx = ev.clientX - dragStartX;
+        if (dragDir === 0 && Math.abs(dx) > 5) dragDir = dx > 0 ? 1 : -1;
+        if (dragDir !== 0) open = Math.min(1, Math.max(0, Math.abs(dx) / (window.innerWidth * OPEN_DRAG_FRAC)));
+      } else if (ev.pointerType === 'mouse' && !revealed) {
+        toWorld(ev); // gentle hover ripple for liveliness
+      }
     });
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      retract();
+      // Past halfway, glide the rest of the way open and reveal; else spring shut.
+      settleTween = open >= 0.5
+        ? { from: open, to: 1, start: performance.now(), dur: 420, cb: revealCurtain }
+        : { from: open, to: 0, start: performance.now(), dur: 520, cb: null };
+    }
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
     container.addEventListener('pointerleave', retract);
     container.addEventListener('contextmenu', (e) => e.preventDefault());
 
     let resizeTimer = null;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => { if (!opening) build(); }, 180);
+      resizeTimer = setTimeout(() => {
+        if (!revealed && !dragging && !settleTween && open === 0) {
+          build();
+        } else {
+          const aspect = window.innerWidth / window.innerHeight;
+          viewW = viewH * aspect;
+          camera.left = -viewW / 2; camera.right = viewW / 2;
+          camera.top = viewH / 2; camera.bottom = -viewH / 2;
+          camera.updateProjectionMatrix();
+          resizeRenderer();
+        }
+      }, 180);
     });
 
     build();
