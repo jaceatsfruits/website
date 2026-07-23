@@ -55,10 +55,10 @@
   }
   .back::before{clip-path:polygon(0 0,100% 0,100% 46%,75% 53%,50% 45%,25% 54%,0 47%);}
   .back::after{clip-path:polygon(0 47%,25% 54%,50% 45%,75% 53%,100% 46%,100% 100%,0 100%);}
-  .back:hover{color:transparent;}
+  .back:hover,.back:active{color:transparent;}
   .back:focus-visible{outline:1px solid var(--handle);outline-offset:3px;}
-  .back:hover::before{opacity:1;transform:translate(-3px,-3px) rotate(-1.2deg);}
-  .back:hover::after{opacity:1;transform:translate(3px,3px) rotate(1.2deg);}
+  .back:hover::before,.back:active::before{opacity:1;transform:translate(-3px,-3px) rotate(-1.2deg);}
+  .back:hover::after,.back:active::after{opacity:1;transform:translate(3px,3px) rotate(1.2deg);}
 
   ul.index{list-style:none;margin:0;padding:0;}
   ul.index li{margin:0 0 .8em;}
@@ -77,12 +77,15 @@
     color:#9a9a9a;font-size:.72em;margin-left:.5em;
     opacity:0;transition:opacity .14s ease;
   }
-  ul.index li:hover .year{opacity:1;}
+  ul.index li:hover .year,
+  ul.index a.selected + .year{opacity:1;}
 
-  /* Hover / focus = real iOS text selection, and the title 'resolves' from
-     photocopied (Redaction 50) to the clean cut, as if being read into focus. */
+  /* Hover / focus (desktop) or .selected (a tap on touch) = real iOS text
+     selection, and the title 'resolves' from photocopied (Redaction 50) to the
+     clean cut, as if being read into focus. */
   ul.index a:hover,
-  ul.index a:focus-visible{
+  ul.index a:focus-visible,
+  ul.index a.selected{
     background:var(--sel);
     outline:none;
     font-family:'RedactionClean',Georgia,serif;
@@ -91,18 +94,22 @@
   ul.index a:hover::before,
   ul.index a:hover::after,
   ul.index a:focus-visible::before,
-  ul.index a:focus-visible::after{
+  ul.index a:focus-visible::after,
+  ul.index a.selected::before,
+  ul.index a.selected::after{
     content:"";position:absolute;width:13px;height:1.7em;
     background-repeat:no-repeat;background-position:center;background-size:contain;
     pointer-events:none;
   }
   ul.index a:hover::before,
-  ul.index a:focus-visible::before{
+  ul.index a:focus-visible::before,
+  ul.index a.selected::before{
     left:-0.42em;top:-0.34em;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 60'%3E%3Ccircle cx='6' cy='6' r='5.4' fill='%230a84ff'/%3E%3Crect x='4.6' y='6' width='2.8' height='54' fill='%230a84ff'/%3E%3C/svg%3E");
   }
   ul.index a:hover::after,
-  ul.index a:focus-visible::after{
+  ul.index a:focus-visible::after,
+  ul.index a.selected::after{
     right:-0.42em;bottom:-0.34em;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 60'%3E%3Crect x='4.6' y='0' width='2.8' height='54' fill='%230a84ff'/%3E%3Ccircle cx='6' cy='54' r='5.4' fill='%230a84ff'/%3E%3C/svg%3E");
   }
@@ -124,5 +131,30 @@
       <li><a href="https://youtu.be/M1J3_z2NGGw" target="_blank" rel="noopener">My Spanish island will always be Julius&rsquo; Cicero</a></li>
     </ul>
   </div>
+
+  <script>
+    // On touch devices there is no hover, so a first tap 'selects' a title
+    // (resolving it + showing the iOS selection and year); a second tap on the
+    // already-selected title opens it. Desktop pointer devices are untouched.
+    if (window.matchMedia('(hover: none)').matches) {
+      var links = Array.prototype.slice.call(document.querySelectorAll('ul.index a'));
+      links.forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          if (!a.classList.contains('selected')) {
+            e.preventDefault();
+            links.forEach(function (x) { x.classList.remove('selected'); });
+            a.classList.add('selected');
+          }
+          // already selected -> let the tap follow the link
+        });
+      });
+      // tapping empty space clears the current selection
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('ul.index a')) {
+          links.forEach(function (x) { x.classList.remove('selected'); });
+        }
+      });
+    }
+  </script>
 </body>
 </html>
