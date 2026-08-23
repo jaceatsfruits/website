@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jacqueline Lan — CV</title>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       HOW TO USE THIS CV
+       ─────────────────────────────────────────────────────────────────────
+       1. EDIT: Everything you see on the page lives in the <body> below,
+          between clearly-labelled <!-- SECTION --> comments. Change the text,
+          add or delete entries — it's plain HTML, no build step.
+
+       2. EXPORT TO PDF: Open this file in your browser and click the
+          "Save as PDF" button (top-right, screen only). Or press Cmd/Ctrl-P.
+          In the print dialog choose "Save as PDF" as the destination.
+          • Set Margins: Default    • Paper: A4 or Letter
+          • Turn ON "Background graphics" if you want the accent colour kept.
+
+       3. TAILOR PER POSITION: To make a version for a specific job, either
+          delete the sections/entries you don't need, or add class="hide-print"
+          to any element to keep it on screen but drop it from the PDF.
+          Tip: save a copy per role, e.g. cv-design.html, cv-research.html.
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Design tokens ─────────────────────────────────────────────────── */
+    :root {
+      --ink:        #1a1a1a;   /* body text            */
+      --ink-soft:   #555;      /* secondary text       */
+      --ink-faint:  #888;      /* dates, meta          */
+      --rule:       #d9d5cc;   /* hairlines            */
+      --accent:     #2e6b52;   /* headings / links     */
+      --paper:      #faf9f5;   /* screen background    */
+      --serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: #eeece6; }
+
+    body {
+      font-family: var(--serif);
+      color: var(--ink);
+      line-height: 1.5;
+      margin: 0;
+      padding: 2.5rem 1rem;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* The "sheet" — sized to a printed page so the screen preview matches the
+       PDF. Width is A4-ish; padding is the printed margin. */
+    .sheet {
+      background: var(--paper);
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 3.25rem;
+      box-shadow: 0 2px 18px rgba(0,0,0,0.12);
+    }
+
+    /* ─── Header ────────────────────────────────────────────────────────── */
+    header { margin-bottom: 1.4rem; }
+
+    .name {
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin: 0;
+      line-height: 1.05;
+    }
+
+    .headline {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--ink-soft);
+      margin: 0.35rem 0 0;
+    }
+
+    .contact {
+      margin-top: 0.9rem;
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 1rem;
+    }
+    .contact a { color: var(--accent); text-decoration: none; }
+    .contact a:hover { text-decoration: underline; }
+    .contact span::after {
+      content: "·";
+      margin-left: 1rem;
+      color: var(--ink-faint);
+    }
+    .contact span:last-child::after { content: ""; margin: 0; }
+
+    /* ─── Sections ──────────────────────────────────────────────────────── */
+    section { margin-top: 1.5rem; }
+
+    h2 {
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin: 0 0 0.75rem;
+      padding-bottom: 0.3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* A summary / profile paragraph */
+    .summary { margin: 0; color: var(--ink); }
+
+    /* An entry = one job / project / degree. Kept together on print. */
+    .entry {
+      margin-bottom: 1.1rem;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .entry:last-child { margin-bottom: 0; }
+
+    .entry-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+    }
+    .entry-title { font-weight: 600; font-size: 1.05rem; }
+    .entry-org { font-style: italic; color: var(--ink-soft); }
+    .entry-date {
+      font-size: 0.85rem;
+      color: var(--ink-faint);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .entry ul {
+      margin: 0.4rem 0 0;
+      padding-left: 1.1rem;
+    }
+    .entry li { margin-bottom: 0.2rem; }
+
+    /* ─── Skills / two-column lists ─────────────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 0.4rem 1.25rem;
+      font-size: 0.95rem;
+    }
+    .skills-grid dt { font-weight: 600; }
+    .skills-grid dd { margin: 0; color: var(--ink-soft); }
+
+    /* ─── Screen-only controls ──────────────────────────────────────────── */
+    .toolbar {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 10;
+    }
+    .toolbar button {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+    }
+    .toolbar button:hover { filter: brightness(1.08); }
+
+    /* Anything marked hide-print stays on screen but drops from the PDF. */
+
+    /* ─── Print rules — this is what makes the PDF clean ─────────────────── */
+    @page {
+      size: A4;              /* change to "letter" for US Letter */
+      margin: 16mm 15mm;
+    }
+
+    @media print {
+      html, body { background: #fff; }
+      body { padding: 0; font-size: 11.5pt; }
+      .sheet {
+        box-shadow: none;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+      }
+      .toolbar, .hide-print { display: none !important; }
+      /* Keep accent colours in the PDF (works with "Background graphics" on). */
+      * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      h2 { break-after: avoid; page-break-after: avoid; }
+      a { color: var(--accent); text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ SCREEN-ONLY TOOLBAR (hidden in the PDF) ═══════════════════════ -->
+  <div class="toolbar hide-print">
+    <button onclick="window.print()">Save as PDF</button>
+  </div>
+
+  <div class="sheet">
+
+    <!-- ═══ HEADER ════════════════════════════════════════════════════════
+         Your name, one-line headline, and contact row. Edit freely;
+         remove any contact <span> you don't want to show. -->
+    <header>
+      <h1 class="name">Jacqueline Lan</h1>
+      <p class="headline">Your professional headline — e.g. Product Designer &amp; Creative Technologist</p>
+      <div class="contact">
+        <span><a href="mailto:jacquelinelan1642@gmail.com">jacquelinelan1642@gmail.com</a></span>
+        <span>+1 (000) 000-0000</span>
+        <span>City, Country</span>
+        <span><a href="https://jaceatsblueberries.com">jaceatsblueberries.com</a></span>
+        <span><a href="https://instagram.com/jacquelinel_lan">@jacquelinel_lan</a></span>
+      </div>
+    </header>
+
+    <!-- ═══ SUMMARY ════════════════════════════════════════════════════════
+         2–4 lines. This is the easiest thing to re-tailor per position —
+         mirror the language of the job posting here. -->
+    <section>
+      <h2>Profile</h2>
+      <p class="summary">
+        A short, punchy summary of who you are and what you do best. Tailor these
+        one to three sentences to each role you apply for — lead with the value
+        you bring and the kind of work you want to be doing.
+      </p>
+    </section>
+
+    <!-- ═══ EXPERIENCE ═════════════════════════════════════════════════════
+         Duplicate a whole <div class="entry"> block for each job.
+         Delete bullet <li> lines you don't need. -->
+    <section>
+      <h2>Experience</h2>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <span class="entry-title">Job Title</span>,
+            <span class="entry-org">Company / Organisation</span>
+          </div>
+          <span class="entry-date">Mon 20XX – Present</span>
+        </div>
+        <ul>
+          <li>Achievement or responsibility — start with a strong verb and, where you can, a number (e.g. "Led…", "Shipped…", "Grew X by 30%").</li>
+          <li>What you did, the context, and the outcome it produced.</li>
+          <li>Keep to 2–4 bullets; put the most relevant one first for each position.</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <span class="entry-title">Previous Job Title</span>,
+            <span class="entry-org">Company / Organisation</span>
+          </div>
+          <span class="entry-date">20XX – 20XX</span>
+        </div>
+        <ul>
+          <li>Achievement or responsibility.</li>
+          <li>Achievement or responsibility.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══ SELECTED PROJECTS ══════════════════════════════════════════════
+         Optional. Great for design/creative/tech roles. Delete if unused. -->
+    <section>
+      <h2>Selected Projects</h2>
+
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <span class="entry-title">Project Name</span>
+            — <span class="entry-org">what it is, in a few words</span>
+          </div>
+          <span class="entry-date">20XX</span>
+        </div>
+        <ul>
+          <li>One line on your role, the tools used, and the result or link.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══ EDUCATION ══════════════════════════════════════════════════════ -->
+    <section>
+      <h2>Education</h2>
+      <div class="entry">
+        <div class="entry-head">
+          <div>
+            <span class="entry-title">Degree / Programme</span>,
+            <span class="entry-org">Institution</span>
+          </div>
+          <span class="entry-date">20XX – 20XX</span>
+        </div>
+        <ul>
+          <li>Honours, relevant coursework, thesis, or a notable detail (optional).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══ SKILLS ═════════════════════════════════════════════════════════
+         Grouped so it stays compact. Rename the categories to fit your field. -->
+    <section>
+      <h2>Skills</h2>
+      <dl class="skills-grid">
+        <dt>Core</dt>
+        <dd>Skill, skill, skill, skill</dd>
+        <dt>Tools</dt>
+        <dd>Tool, tool, tool, tool</dd>
+        <dt>Languages</dt>
+        <dd>English (native), Other (fluent)</dd>
+      </dl>
+    </section>
+
+    <!-- ═══ AWARDS / EXTRAS (optional) ═════════════════════════════════════
+         Add class="hide-print" to this whole <section> to keep it on screen
+         but drop it from a particular PDF. -->
+    <section>
+      <h2>Awards &amp; Recognition</h2>
+      <div class="entry">
+        <div class="entry-head">
+          <div><span class="entry-title">Award or honour</span></div>
+          <span class="entry-date">20XX</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>
